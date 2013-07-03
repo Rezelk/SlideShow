@@ -3,13 +3,15 @@ SlideShow
 
 This is web presentation tools  that created as prototype with HTML5 and CSS3.
 
-1. What's this?
+------
+
+## 1. What's this?
 
 This is web presentation tools.
 My concept is more simple, do more stylish presentation :)
 You edit ASCII file, and you can present slide show.
 
-2. How to use
+## 2. How to use
 
 The first, edit slideshow file "myslide.txt" in "content" directory.
 
@@ -22,3 +24,7 @@ cf) src(attribute) in slideshow(element)
 
 The second, open "base.html", and click start presentation button.
 Wait for magic :)
+
+## 3. Lisence
+
+please wait
