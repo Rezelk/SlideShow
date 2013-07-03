@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	
+	<title>HTML5</title>
+	
+	<!-- Favicon -->
+	<link rel="icon" href="./img/favicon.png"/>
+	<!-- CSS -->
+	<link rel="stylesheet" href="./css/core.css"/>
+	<link rel="stylesheet" href="./css/presentation.css"/>
+	<!-- jQuery 1.10.1 -->
+	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>-->
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<!-- Slideスクリプト読込 -->
+	<script type="text/javascript" src="./js/slide.core.js"></script>
+	<script type="text/javascript" src="./js/slide.parser.js"></script>
+	<script type="text/javascript" src="./js/slide.control.js"></script>
+	
+</head>
+<body>
+	
+	<!-- 全領域 -->
+	<div id="container">
+		
+		<!-- 操作ナビゲーション -->
+		<nav class="control">
+			<!-- ボタン -->
+			<div class="buttons">
+				<!--<button class="open" title="スライドショーを開く">　✚　</button>-->
+				<button class="reload" title="スライドショーを再読込">　↻　</button>
+				<input class="pageNo" type="text" value="1" tabindex="-1" title="開始するページ番号"/>
+				<button class="start"  title="スライドショーを開始">　►　</button>
+				<button class="prev"   title="１つ前のスライドへ">◄◄</button>
+				<button class="next"   title="１つ後のスライドへ">►►</button>
+				<!-- うさぎプログレス -->
+				<span class="rabbitProgress" title="スライドショー進捗状況"></span>
+				<!-- かめプログレス -->
+				<span class="turtleProgress" title="発表時間状況"></span>
+			</div>
+			
+			<!-- オーバーレイ -->
+			<div class="overlays">
+				<div class="prev"  title="１つ前のスライドへ"></div>
+				<div class="start" title="スライドショーを開始"></div>
+				<div class="next"  title="１つ後のスライドへ"></div>
+			</div>
+		</nav>
+		
+		<!-- プレゼンテーション表示するエリア -->
+		<article id="presentation"></article>
+		
+		<!-- うさぎ -->
+		<article id="rabbit"></article>
+		<!-- かめ -->
+		<article id="turtle"></article>
+		
+		<!-- 読み込んだスライドを埋め込むエリア -->
+		<article id="slide"></article>
+		
+	</div>
+	
+</body>
+</html>

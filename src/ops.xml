@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<ops>
+	<!-- スライドショーデータの相対パスまたは絶対パスを指定します -->
+	<slideshow src="./content/myslide.txt"/>
+
+	<!-- タブ文字の置換文字列を指定します -->
+	<tab><span class="indent-text">≫ </span></tab>
+
+	<!-- ローダー画像の相対パスまたは絶対パスを指定します -->
+	<loader src="./img/loader.gif"/>
+	
+	<!-- プレゼン領域のID -->
+	<presenId id="#presentation"/>
+	
+</ops>
