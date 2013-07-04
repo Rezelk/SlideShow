@@ -1,12 +1,12 @@
 /******************************************************************************/
 /* プレゼン領域 */
 article#presentation {
+	position: relative;
 	z-index: 100;/* 最下位 */
 	font-size: 1.3em;
 }
 /* プレゼン領域：ページ */
 article#presentation .page {
-	z-index: 110;/* 最下位 */
 	font-family: Verdana,"ヒラギノ角ゴ Pro W3","メイリオ", sans-serif;
 	overflow-x: auto;
 	overflow-y: auto;
