@@ -118,6 +118,10 @@ slide.control.startPresentation = function() {
 	} else {
 		pageNo = 0;
 	}
+	
+	// google-code-prettifyの適用
+	prettyPrint();
+	
 	// スライドショーを初めて開始したときはかめ発動
 	if (slide.stats.isStarted === false) {
 		// 時間を入力し、
