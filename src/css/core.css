@@ -256,6 +256,17 @@ article#rabbit {
 	position: relative;
 	z-index: 200;/* プレゼン領域の上、かめの上 */
 }
+article#rabbit::before {
+	content: "";
+	display: block;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top: 0px;
+	right: -10px;
+	border: 5px solid transparent;
+	border-left-color: pink;
+}
 article#rabbit::after {
 	content: url("../img/rabbit.png");
 	display: block;
@@ -280,6 +291,17 @@ article#turtle {
 	   -moz-transition: width 5s linear;
 	-webkit-transition: width 5s linear;
 	     -o-transition: width 5s linear;
+}
+article#turtle::before {
+	content: "";
+	display: block;
+	width: 0px;
+	height: 0px;
+	position: absolute;
+	top: 0px;
+	right: -10px;
+	border: 5px solid transparent;
+	border-left-color: yellowgreen;
 }
 article#turtle::after {
 	content: url("../img/turtle.png");

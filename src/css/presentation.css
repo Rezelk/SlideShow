@@ -3,7 +3,7 @@
 article#presentation {
 	position: relative;
 	z-index: 100;/* 最下位 */
-	font-size: 1.3em;
+	font-size: 1.0em;
 }
 /* プレゼン領域：ページ */
 article#presentation .page {
