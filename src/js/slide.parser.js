@@ -45,6 +45,7 @@ slide.parser.parse = function(text) {
 	var $currentList = null;
 	var $currentQuote = null;
 	var $currentTable = null;
+	var $currentCode = null;
 	
 	// 改行コードで分割
 	var lines = text.split("\n");
@@ -58,6 +59,8 @@ slide.parser.parse = function(text) {
 	var allowAppendQuote = false;
 	// テーブル要素を追加するタイミングでtrue
 	var allowAppendTable = false;
+	// コード領域を追加するタイミングでtrue
+	var allowAppendCode = false;
 	// 各行を解析
 	for(var index in lines) {
 		
@@ -87,6 +90,14 @@ slide.parser.parse = function(text) {
 			allowAppendTable = false;
 		}
 		
+		// コード領域追加許可がtrueなら引用ブロックを追加
+		if (allowAppendCode === true) {
+			$currentPage.append( $currentCode );
+			// 追加したら初期化
+			$currentCode = null;
+			allowAppendCode = false;
+		}
+		
 		// 行データ取得
 		var line = lines[index];
 		
@@ -106,7 +117,7 @@ slide.parser.parse = function(text) {
 				$currentList = $("<ul>");
 			}
 			// リスト項目を作成
-			console.debug(" -> li");
+			console.debug(" -> ul>li");
 			$currentBlock = $("<li>");
 			// リストにリスト要素を追加
 			$currentList.append($currentBlock);
@@ -128,7 +139,7 @@ slide.parser.parse = function(text) {
 				$currentList = $("<ol>");
 			}
 			// リスト項目を作成
-			console.debug(" -> li");
+			console.debug(" -> ol>li");
 			$currentBlock = $("<li>");
 			// リストにリスト要素を追加
 			$currentList.append( $currentBlock );
@@ -143,16 +154,16 @@ slide.parser.parse = function(text) {
 		// 引用
 		matches = line.match(/^>(.+)/);
 		if (matches !== null && matches.length === 2) {
-			// 新しいリストを作成/追加
+			// 新しい引用ブロックを作成/追加
 			if ($currentQuote === null) {
-				// 初見の場合はリスト要素を作成
+				// 初見の場合は引用ブロック要素を作成
 				console.debug(" -> blockquote");
 				$currentQuote = $("<blockquote>");
 			}
-			// リスト項目を作成
-			console.debug(" -> div");
+			// 子要素を作成
+			console.debug(" -> blockquote>div");
 			$currentBlock = $("<div>");
-			// リストにリスト要素を追加
+			// 引用ブロックに子要素を追加
 			$currentQuote.append( $currentBlock );
 			inlineText = matches[1];
 			
@@ -171,7 +182,7 @@ slide.parser.parse = function(text) {
 				$currentTable = $("<table>");
 			}
 			// テーブル項目を作成
-			console.debug(" -> td");
+			console.debug(" -> table>tr>td");
 			// "|"区切りでセル処理(末尾の"|"を無視するため、分割した後の末尾の要素は無視)
 			var cells = matches[1].split("|");
 			var $tbody = $("<tbody>");
@@ -193,6 +204,37 @@ slide.parser.parse = function(text) {
 		} else if ($currentTable !== null) {
 			// テーブルを保持していて、現在の要素がテーブル以外場合はテーブル書出＆初期化
 			allowAppendTable = true;
+		}
+		
+		// コード（シンタックスハイライト）
+		matches = line.match(/^#code\(\)\{\{/);
+		if (matches !== null && matches.length === 1) {
+			// 新しいコード領域を作成
+			if ($currentCode === null) {
+				// 初見の場合はテーブル要素を作成
+				console.debug(" -> code");
+				$currentCode = $("<pre>").addClass("prettyprint").addClass("linenums");
+			}
+			
+			continue;
+			
+		} else if ($currentCode !== null && line.match(/^\}\}/)) {
+			// コード領域を保持していて、かつコード領域の閉じ指定があった場合は
+			// コード領域書出
+			allowAppendCode = true;
+			
+			continue;
+			
+		} else if ($currentCode !== null) {
+			// 子要素を作成
+			console.debug(" -> code>div");
+			$currentBlock = $("<div>");
+			var inlineText = line.replace(/\t/g, slide.ops.find("tab").html());
+			// 引用ブロックに子要素を追加
+			$currentCode.append( inlineText + "\n" );
+			
+			continue;
+			
 		}
 		
 		// 連続ブロック要素解析 - end ------------------------------------------

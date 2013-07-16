@@ -187,6 +187,9 @@ slide.core.loadSlide = function() {
 			// プログレスを更新
 			var maxPageNo = $("#slide .page").length;
 			$(".progress").text(0 + " / " + maxPageNo);
+			
+			// google-code-prettifyの適用
+			prettyPrint();
 		},
 		// 失敗時
 		error: function(xhr, textStat, e) {

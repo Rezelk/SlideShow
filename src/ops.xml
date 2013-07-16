@@ -5,12 +5,15 @@
 	<slideshow src="./content/myslide.txt"/>
 
 	<!-- タブ文字の置換文字列を指定します -->
-	<tab><span class="indent-text">≫ </span></tab>
+	<tab><span class="indent-text">    </span></tab>
 
 	<!-- ローダー画像の相対パスまたは絶対パスを指定します -->
 	<loader src="./img/loader.gif"/>
 	
-	<!-- プレゼン領域のID -->
+	<!-- プレゼン領域の要素IDを指定します -->
 	<presenId id="#presentation"/>
+	
+	<!-- プレゼンのスタイル変更は"presentation.css"で変更します -->
+	<!-- うさぎ/かめの表示変更は"rabbit.css"で変更します -->
 	
 </ops>

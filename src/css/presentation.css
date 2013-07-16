@@ -73,16 +73,16 @@ article#presentation .page hr {
 }
 
 /* ページ：リスト(ul) */
-article#presentation .page ul {
+article#presentation .page>ul {
 	margin-left: 20px;
 	margin-bottom: 5px;
 }
 /* ページ：リスト項目(ul) */
-article#presentation .page ul>li {
+article#presentation .page>ul>li {
 	margin-left: 25px;
 }
 /* ページ：リスト(ol) */
-article#presentation .page ol {
+article#presentation .page>ol {
 	margin-left: 20px;
 	margin-bottom: 5px;
 	counter-reset: li;
@@ -90,14 +90,14 @@ article#presentation .page ol {
 	*list-style: decimal; /* Keep using default numbering for IE6/7 */
 }
 /* ページ：リスト項目(ul) */
-article#presentation .page ol>li {
+article#presentation .page>ol>li {
 	margin: 2px 0px 2px 35px;
 	padding-left: 5px;
 	position: relative;
 	line-height: 2em;
 	pointer-events: all;
 }
-article#presentation .page ol>li::before {
+article#presentation .page>ol>li::before {
 	content: counter(li, decimal);
 	counter-increment: li;
 	width: 2em;

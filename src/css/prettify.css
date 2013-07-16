@@ -1,0 +1,28 @@
+/* リスト項目の変更 */
+ol.linenums li {
+	list-style: decimal outside;
+	border-left: solid 3px #7E7;
+	padding-left: 0.5em;
+	margin-left: 0.7em;
+	font-family: "Migu 2M", "Consolas", "Courier New";
+	background: #fff;
+}
+/* リスト偶数行の変更 */
+ol.linenums li:nth-child(even) {
+	background: #fff;
+}
+/* リスト奇数行の変更 */
+ol.linenums li:nth-child(odd) {
+	background: #eee;
+}
+/* リストの変更 */
+ol.linenums {
+	margin-left: 30px;
+}
+/* コード領域の変更 */
+pre.prettyprint {
+	background: #eee;
+	color: black;
+	margin: 20px;
+}
+/*EOF*/

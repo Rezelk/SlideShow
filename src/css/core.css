@@ -227,7 +227,18 @@ span.indent-text {
 	font-size: x-small;
 	opacity: 0.4;
 	margin-left:  1px;
-	margin-right: 12px;
+	margin-right: 1px;
+	width: 3em;
+	height: 1em;
+	position: relative;
+	display: inline-block;
+	font-family: "ＭＳ ゴシック";
+}
+span.indent-text::before {
+	content: "≫";
+	position: absolute;
+	top: 0px;
+	left: 0px;
 }
 
 /* 下線 */
