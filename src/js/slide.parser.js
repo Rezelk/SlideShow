@@ -33,6 +33,7 @@ slide.parser.script = {
 console.info("'" + slide.parser.script.thisFile + "' is loaded.");
 
 //============================================================================//
+// テキストパース処理
 slide.parser.parse = function(text) {
 	
 	console.info("Parsing text.");
@@ -363,82 +364,117 @@ slide.parser.parse = function(text) {
 	return $root.html();
 }
 
+//------------------------------------------------------------------------------
 // インラインテキストをインラインHTMLに変換
 slide.parser.getInlineHtml = function(inlineText) {
 	
 	var inlineHTML = inlineText;
 	
 	// 強い強調（太字） **文字列**
-	matches = inlineHTML.match(/\*\*(.+)\*\*/);
-	if (matches !== null && matches.length === 2) {
-		console.debug(" -> strong");
-		// HTMLを置換
-		var partHTML = "<strong>" + matches[1] + "</strong>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getBoldHtml = function() {
+		var matches = inlineHTML.match(/\*\*(.+?)\*\*/);
+		if (matches !== null && matches.length === 2) {
+			console.debug(" -> strong");
+			// HTMLを置換
+			var partHTML = "<strong>" + matches[1] + "</strong>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getBoldHtml();
+		}
+	};
+	getBoldHtml();
 	
 	// 強調（斜体） *文字列*
-	matches = inlineHTML.match(/\*(.+)\*/);
-	if (matches !== null && matches.length === 2) {
-		console.debug(" -> em");
-		// HTMLを置換
-		var partHTML = "<em>" + matches[1] + "</em>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getItalicHtml = function() {
+		var matches = inlineHTML.match(/\*(.+?)\*/);
+		if (matches !== null && matches.length === 2) {
+			console.debug(" -> em");
+			// HTMLを置換
+			var partHTML = "<em>" + matches[1] + "</em>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getItalicHtml();
+		}
+	};
+	getItalicHtml();
 	
 	// 取り消し線 -文字列-
-	matches = inlineHTML.match(/--(.+)--/);
-	if (matches !== null && matches.length === 2) {
-		console.debug(" -> s");
-		// HTMLを置換
-		var partHTML = "<s>" + matches[1] + "</s>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getStrikeHtml = function() {
+		var matches = inlineHTML.match(/--(.+?)--/);
+		if (matches !== null && matches.length === 2) {
+			console.debug(" -> s");
+			// HTMLを置換
+			var partHTML = "<s>" + matches[1] + "</s>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getStrikeHtml();
+		}
+	};
+	getStrikeHtml();
 	
 	// 上線 __文字列__
-	matches = inlineHTML.match(/__(.+)__/);
-	if (matches !== null && matches.length === 2) {
-		console.debug(" -> overline");
-		// HTMLを置換
-		var partHTML = "<span class='overline'>" + matches[1] + "</span>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getUpperlineHtml = function() {
+		var matches = inlineHTML.match(/__(.+?)__/);
+		if (matches !== null && matches.length === 2) {
+			console.debug(" -> overline");
+			// HTMLを置換
+			var partHTML = "<span class='overline'>" + matches[1] + "</span>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getUpperlineHtml();
+		}
+	};
+	getUpperlineHtml();
 	
 	// 下線 _文字列_
-	matches = inlineHTML.match(/_(.+)_/);
-	if (matches !== null && matches.length === 2) {
-		console.debug(" -> underline");
-		// HTMLを置換
-		var partHTML = "<span class='underline'>" + matches[1] + "</span>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getUnderlineHtml = function() {
+		var matches = inlineHTML.match(/_(.+?)_/);
+		if (matches !== null && matches.length === 2) {
+			console.debug(" -> underline");
+			// HTMLを置換
+			var partHTML = "<span class='underline'>" + matches[1] + "</span>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getUnderlineHtml();
+		}
+	};
+	getUnderlineHtml();
 	
 	// 文字背景色 &color(文字色,背景色){文字列};
-	matches = inlineHTML.match(/&color\((.*),(.+)\)\{(.+)\};/);
-	if (matches !== null && matches.length === 4) {
-		console.debug(" -> font color + background");
-		// HTMLを置換
-		var partHTML = "<span style='color:" + matches[1] + "; background:" + matches[2] + "'>" + matches[3] + "</span>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getTextBackgroundHtml = function() {
+		var matches = inlineHTML.match(/&color\((.*?),(.+?)\)\{(.+?)\};/);
+		if (matches !== null && matches.length === 4) {
+			console.debug(" -> font color + background");
+			// HTMLを置換
+			var partHTML = "<span style='color:" + matches[1] + "; background:" + matches[2] + "'>" + matches[3] + "</span>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getTextBackgroundHtml();
+		}
+	};
+	getTextBackgroundHtml();
+	
 	
 	// 文字色 &color(文字色){文字列};
-	matches = inlineHTML.match(/&color\((.+)\)\{(.+)\};/);
-	if (matches !== null && matches.length === 3) {
-		console.debug(" -> font color");
-		// HTMLを置換
-		var partHTML = "<span style='color:" + matches[1] + "'>" + matches[2] + "</span>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getColorHtml = function() {
+		var matches = inlineHTML.match(/&color\((.+?)\)\{(.+?)\};/);
+		if (matches !== null && matches.length === 3) {
+			console.debug(" -> font color");
+			// HTMLを置換
+			var partHTML = "<span style='color:" + matches[1] + "'>" + matches[2] + "</span>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getColorHtml();
+		}
+	};
+	getColorHtml();
 	
 	// 文字サイズ &size(文字サイズ){文字列};
-	matches = inlineHTML.match(/&size\((.+)\)\{(.+)\};/);
-	if (matches !== null && matches.length === 3) {
-		console.debug(" -> font size");
-		// HTMLを置換
-		var partHTML = "<span style='font-size:" + matches[1] + "'>" + matches[2] + "</span>";
-		inlineHTML = inlineHTML.replace(matches[0], partHTML);
-	}
+	var getFontSizeHtml = function() {
+		var matches = inlineHTML.match(/&size\((.+?)\)\{(.+?)\};/);
+		if (matches !== null && matches.length === 3) {
+			console.debug(" -> font size");
+			// HTMLを置換
+			var partHTML = "<span style='font-size:" + matches[1] + "'>" + matches[2] + "</span>";
+			inlineHTML = inlineHTML.replace(matches[0], partHTML);
+			getFontSizeHtml();
+		}
+	};
+	getFontSizeHtml();
+	
 	
 	return inlineHTML;
 };
