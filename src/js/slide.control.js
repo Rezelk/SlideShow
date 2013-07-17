@@ -7,8 +7,8 @@
  *          :
  * Version  : 0.1.0
  * Author   : Rezelk
- * Changes  : 2013/06/27 0.1.0 Rezelk Created
- *          : 2013/07/02 0.2.0 Add Drag & Drop feature
+ * Changes  : 2013/06/27 - 0.1.0 - Rezelk - Created
+ *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  */
 
 // スクリプト固有の名前空間を作成
@@ -20,8 +20,7 @@ slide.control.script = {
 	// スクリプト情報
 	thisFile     : "slide.control.js",
 	name         : "Slide Show Parser",
-	version      : "0.1.0",
-	lastModified : "2013/06/27"
+	lastModified : "2013/07/17"
 	
 	// スクリプト動作設定
 	// なし
@@ -124,7 +123,7 @@ slide.control.startPresentation = function() {
 	
 	// スライドショーを初めて開始したときはかめ発動
 	if (slide.stats.isStarted === false) {
-		// 時間を入力し、
+		// 時間を入力し、秒に変換
 		var time = window.prompt("発表予定時間を入力(mm:ss)", "10:00");
 		if (time == null || time.indexOf(":") == -1) {
 			time = "00:00";
@@ -139,6 +138,8 @@ slide.control.startPresentation = function() {
 		if (sec) {
 			slide.control.totalSec += sec;
 		}
+		// かめのアニメーション時間を発表時間に設定し、かめの幅をページ幅一杯に
+		// 変更することにより、発表時間分の時間をかけてバーが伸びていく
 		$("#turtle").css({
 			"transition-duration":slide.control.totalSec + "s",
 			"-moz-transition-duration":slide.control.totalSec + "s",
@@ -146,7 +147,7 @@ slide.control.startPresentation = function() {
 			"-o-transition-duration":slide.control.totalSec + "s"
 		});
 		$("#turtle").width("100%");
-		
+		// かめ進捗（経過時間）を表示
 		slide.control.showTurtleProgress();
 		slide.control.turtleTimer = setTimeout(slide.control.showTurtleProgress, 100);
 		
@@ -224,15 +225,16 @@ slide.control.getTimeAsMMSS = function(time) {
 	return mm + ":" + ((ss < 10) ? "0" + ss : ss);
 };
 
-// カメの時間経過
+// かめの時間経過
 slide.control.turtleTimer = false;
 slide.control.showTurtleProgress = function() {
+	// かめの幅とページ幅から逆算するという荒技
 	var turtleWidth = $("#turtle").width();
 	var totalWidth = $("#container").width();
 	var elapsedTime = Math.floor(slide.control.totalSec * turtleWidth / totalWidth);
 	var leaveTime = slide.control.totalSec - elapsedTime;
 	$(".turtleProgress").text( slide.control.getTimeAsMMSS(slide.control.totalSec) + " @ " + slide.control.getTimeAsMMSS(leaveTime) + " (" + slide.control.getTimeAsMMSS(elapsedTime) + ")" );
-	
+	// プレゼンが開始していなければかめ進捗は初期化
 	if (slide.stats.isStarted == false) {
 		clearTimeout(slide.control.turtleTimer);
 		$(".turtleProgress").text("");
@@ -244,6 +246,7 @@ slide.control.showTurtleProgress = function() {
 // かめをリセット
 slide.control.resetTurtle = function() {
 	// かめのリセット
+	// アニメーション時間を0秒にして幅0に変更
 	$("#turtle").css({
 		"transition-duration":"0s",
 		"-moz-transition-duration":"0s",
@@ -251,6 +254,7 @@ slide.control.resetTurtle = function() {
 		"-o-transition-duration":"0s"
 	});
 	$("#turtle").width(0);
+	// かめ進捗を初期化
 	$(".turtleProgress").text("");
 };
 
@@ -302,6 +306,7 @@ slide.control.apply = function() {
 	
 	// ウィンドウでのキー入力
 	$(window).keypress(function(event) {
+		// フォーカスはHTMLに
 		$("html").focus();
 		
 		// 0～9キーの場合はページ番号欄に入力
@@ -340,8 +345,13 @@ slide.control.apply = function() {
 	
 	// ドラッグされた
 	$("html").bind("dragenter", function(event) {
+		
+		// デフォルトイベントを殺す
+		event.stopPropagation();
+		event.preventDefault();
 		// Drop noticeを表示
 		$fileDrop.show();
+		// プレゼン領域の初期化
 		$("#presentation").contents().remove();
 		$("nav.control .overlays .prev").css({opacity:0.0});
 		$("nav.control .overlays .next").css({opacity:0.0});
@@ -349,30 +359,40 @@ slide.control.apply = function() {
 	// ドラッグ中
 	}).bind("dragover", function(event) {
 		
-		$fileDrop.show();
+		// デフォルトイベントを殺す
 		event.stopPropagation();
 		event.preventDefault();
+		// Drag noticeを表示
+		$fileDrop.show();
 	
 	// ドラッグやめた
 	}).bind("dragleave", function(event) {
-		$fileDrop.hide();
+		
+		// デフォルトイベントを殺す
 		event.stopPropagation();
 		event.preventDefault();
+		// Drag noticeを非表示
+		$fileDrop.hide();
 	
 	// ドロップされた
 	}).bind("drop", function(event) {
+		
+		// デフォルトイベントを殺す
 		event.stopPropagation();
 		event.preventDefault();
 		
 		// Drop noticeを非表示
 		$fileDrop.hide();
 		
+		// Dragイベントオブジェクトからデータを取得
 		var transfer = event.dataTransfer;
+		// データからファイル（先頭１つだけ）を取得
 		var file = transfer.files[0];
 		
 		// 拡張子チェック
 		var index = file.name.lastIndexOf(".");
 		var ext = file.name.substring(index + 1);
+		// txtのみ許可
 		if (ext != "txt") {
 			console.error("File is not TXT.");
 			// プレゼンをリセット
@@ -380,12 +400,14 @@ slide.control.apply = function() {
 			return;
 		}
 		
+		// ファイルリーダーオブジェクトを作成
 		var reader = new FileReader();
 		console.info("Dropped file is '" + file.name + "'.");
 
-		// ファイルを読み込んだ
+		// ファイルを読み込んだら実行
 		reader.onload = (function(event) {
 			console.info("The file is loaded.");
+			// ファイル読み込みが完了していたらスライドショー読込
 			if (event.target.readyState == FileReader.DONE) {
 				console.info("The slideshow is loaded.");
 				console.groupCollapsed("The slideshow text");

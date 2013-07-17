@@ -9,7 +9,9 @@
  *          :
  * Version  : 0.1.0
  * Author   : Rezelk
- * Changes  : 2013/06/25 0.1.0 Rezelk Created
+ * Changes  : 2013/06/25 - 0.1.0 - Rezelk - Created
+ *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
+ *          :                               Reform parser (conbine headings)
  */
 
 // スクリプト固有の名前空間を作成
@@ -21,8 +23,7 @@ slide.parser.script = {
 	// スクリプト情報
 	thisFile     : "slide.parser.js",
 	name         : "Slide Show Parser",
-	version      : "0.1.0",
-	lastModified : "2013/06/25"
+	lastModified : "2013/07/17"
 	
 	// スクリプト動作設定
 	// なし
@@ -315,58 +316,13 @@ slide.parser.parse = function(text) {
 			continue;
 		}
 		
-		// 見出し：レベル１ # 文字列
-		matches = line.match(/^# (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h1");
+		// 見出し：# 文字列 ～ ###### 文字列
+		matches = line.match(/^(#+) (.+)/);
+		if (matches !== null && matches.length === 3) {
+			console.debug(" -> hX");
 			// 新しい見出しを作成
-			$currentBlock = $("<h1>");
-			inlineText = matches[1];
-		}
-		
-		// 見出し：レベル２ ## 文字列
-		matches = line.match(/^## (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h2");
-			// 新しい見出しを作成
-			$currentBlock = $("<h2>");
-			inlineText = matches[1];
-		}
-		
-		// 見出し：レベル３ ### 文字列
-		matches = line.match(/^### (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h3");
-			// 新しい見出しを作成
-			$currentBlock = $("<h3>");
-			inlineText = matches[1];
-		}
-		
-		// 見出し：レベル４ #### 文字列
-		matches = line.match(/^#### (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h4");
-			// 新しい見出しを作成
-			$currentBlock = $("<h4>");
-			inlineText = matches[1];
-		}
-		
-		// 見出し：レベル５ ##### 文字列
-		matches = line.match(/^##### (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h5");
-			// 新しい見出しを作成
-			$currentBlock = $("<h5>");
-			inlineText = matches[1];
-		}
-		
-		// 見出し：レベル６ ###### 文字列
-		matches = line.match(/^###### (.+)/);
-		if (matches !== null && matches.length === 2) {
-			console.debug(" -> h6");
-			// 新しい見出しを追加
-			$currentBlock = $("<h6>");
-			inlineText = matches[1];
+			$currentBlock = $("<h" + matches[1].length + ">");
+			inlineText = matches[2];
 		}
 		
 		// ブロック要素解析 - end ----------------------------------------------
@@ -390,7 +346,7 @@ slide.parser.parse = function(text) {
 		}
 		
 		// タブ文字
-		inlineHTML = inlineHTML.replace(/\t/g, slide.ops.find("tab").html());
+		inlineHTML = inlineHTML.replace(/\t/g, slide.ops.find("tab").contents());
 		
 		// インライン要素解析 - end --------------------------------------------
 		

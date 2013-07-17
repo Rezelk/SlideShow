@@ -6,11 +6,12 @@
  *          : 設定ファイルおよびスライドファイルの読み込みと
  *          : 処理のディスパッチを行います。
  *          : 
- * Version  : 0.1.0
+ * Version  : 0.2.0
  * Author   : Rezelk
- * Changes  : 2013/06/25 0.1.0 Rezelk Created
- *          : 2013/06/26 0.1.1 Rezelk Add presentation control buttons
- *          : 2013/06/27 0.1.2 Rezelk Parge control processes
+ * Changes  : 2013/06/25 - 0.1.0 - Rezelk - Created
+ *          : 2013/06/26 - 0.1.1 - Rezelk - Add presentation control buttons
+ *          : 2013/06/27 - 0.1.2 - Rezelk - Parge control processes
+ *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  */
 
 // スクリプト間の共通名前空間を作成（コアのみ）
@@ -25,11 +26,11 @@ slide.core.script = {
 	// スクリプト情報
 	thisFile     : "slide.core.core.js",
 	name         : "Slide Show Core",
-	version      : "0.1.2",
-	lastModified : "2013/06/27",
+	lastModified : "2013/07/17",
 	
 	// スクリプト動作設定
 	// 設定ファイルのパスをbase.htmlからの相対パス、または絶対パスで指定します
+	// デフォルト：./ops.xml
 	opsFile      : "./ops.xml"
 };
 // スクリプト情報＆動作設定 - end
@@ -112,11 +113,13 @@ $(function() {
 	
 });
 // ページを読み込んだら処理開始 - end
+
 //============================================================================//
 // 設定ファイルを読み込む
 slide.core.loadOps = function() {
+	// Ajaxを使ってops.xml（オプション指定）を読み込む
 	$.ajax({
-		// 通信先は設定ファイル
+		// 通信先は設定ファイル（デフォルト：./ops.xml）
 		url: slide.core.script.opsFile,
 		// メソッドはGET
 		type: "GET",
@@ -155,7 +158,7 @@ slide.core.loadOps = function() {
 
 // スライドファイルの読み込み
 slide.core.loadSlide = function() {
-	
+	// Ajaxを使ってスライドファイルを読み込む
 	$.ajax({
 		// 通信先はスライドファイル
 		url: slide.ops.slideshowSrc,
@@ -202,7 +205,7 @@ slide.core.loadSlide = function() {
 	});
 };
 
-// jQueryにdataTransferイベントを登録
+// jQueryのイベントにdataTransferを登録
 jQuery.event.props.push('dataTransfer');
 
 //[EOF]
