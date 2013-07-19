@@ -238,3 +238,31 @@ META: color=#eef
 >	}
 >}
 
+// スライド
+==========
+META: background=#113
+META: color=#eef
+# 使える文法（コード）
+
+プログラム（コード）が見やすくなります。
+
+- 「コードハイライトあるといいね」と君が言ったから
+- ７月１６日はハイライト記念日
+
+## コード（シンタックスハイライト）
+
+>#code(){{
+>～～表示したいコード～～
+>}}
+
+#code(){{
+public class HogeImpl implements Hoge {
+	private String name = "";
+	private int year = 0;
+	public HogeImpl() {
+		this.name = "Moge";
+		this.year = 2013;
+	}
+}
+}}
+
