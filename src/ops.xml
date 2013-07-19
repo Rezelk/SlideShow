@@ -5,7 +5,7 @@
 	<slideshow src="./content/myslide.txt"/>
 
 	<!-- タブ文字の置換文字列を指定します -->
-	<tab><span class="indent-text">    </span></tab>
+	<tab><span class="indent-text">&nbsp;&nbsp;&nbsp;&nbsp;</span></tab>
 
 	<!-- ローダー画像の相対パスまたは絶対パスを指定します -->
 	<loader src="./img/loader.gif"/>

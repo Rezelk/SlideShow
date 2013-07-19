@@ -3,7 +3,7 @@
 article#presentation {
 	position: relative;
 	z-index: 100;/* 最下位 */
-	font-size: 1.0em;
+	font-size: 1.1em;
 }
 /* プレゼン領域：ページ */
 article#presentation .page {
@@ -14,7 +14,8 @@ article#presentation .page {
 /******************************************************************************/
 /* スライドそのものの見た目をここで定義 */
 article#presentation .page div.line {
-	line-height: 1.2em;
+	line-height: 1.5em;
+	margin-left: 1em;
 }
 
 /* ページ：見出し */
@@ -26,13 +27,13 @@ article#presentation .page h5,
 article#presentation .page h6 {
 	text-shadow: 2px 2px 3px #888;
 	background: rgba(128, 128, 128, 0.2);
-	padding: 3px 10px 3px 10px;
+	padding: 5px 10px 8px 10px;
 	font-weight: normal;
 }
 /* ページ：見出し１ */
 article#presentation .page h1 {
 	font-size: 2.4em;
-	margin: 0px 10px 0px 0px;
+	margin: 0px 10px 10px 0px;
 }
 /* ページ：見出し２ */
 article#presentation .page h2 {
@@ -78,7 +79,7 @@ article#presentation .page>ul {
 /* ページ：リスト項目(ul) */
 article#presentation .page>ul>li {
 	margin-left: 25px;
-	line-height: 1.2em;
+	line-height: 1.5em;
 }
 /* ページ：リスト(ol) */
 article#presentation .page>ol {
@@ -119,12 +120,11 @@ article#presentation .page>ol>li::before {
 /* ページ：引用ブロック */
 article#presentation .page blockquote {
 	border: 1px gray dotted;
-	margin-left:   10px;
-	margin-right:  10px;
-	margin-bottom:  5px;
-	padding:        5px;
+	margin: 1em;
+	padding: 5px;
 	font-size: 0.9em;
 	position: relative;
+	line-height: 1.3em;
 }
 article#presentation .page blockquote::before {
 	content: "";

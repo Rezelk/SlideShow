@@ -22,8 +22,8 @@ article#rabbit::before {
 article#rabbit::after {
 	content: url("../img/rabbit.png");
 	display: block;
-	margin-top: -55px;
-	margin-right: 0px;
+	margin-top: -27px;
+	margin-right: -2px;
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -58,8 +58,8 @@ article#turtle::before {
 article#turtle::after {
 	content: url("../img/turtle.png");
 	display: block;
-	margin-top: -55px;
-	margin-right: -45px;
+	margin-top: -28px;
+	margin-right: -5px;
 	position: absolute;
 	top: 0px;
 	right: 0px;
