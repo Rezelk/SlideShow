@@ -12,6 +12,7 @@
  *          : 2013/06/26 - 0.1.1 - Rezelk - Add presentation control buttons
  *          : 2013/06/27 - 0.1.2 - Rezelk - Parge control processes
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
+ *          : 2013/07/19 - 0.1.4 - Rezelk - Compatible with IE9 (Re-fix)
  */
 
 // スクリプト間の共通名前空間を作成（コアのみ）
@@ -124,7 +125,7 @@ slide.core.loadOps = function() {
 		// メソッドはGET
 		type: "GET",
 		// データタイプはXML
-		dataType: "xml",
+		dataType: "html",
 		// キャッシュは無効
 		cache: false,
 		// 同期

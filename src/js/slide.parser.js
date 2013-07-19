@@ -12,6 +12,7 @@
  * Changes  : 2013/06/25 - 0.1.0 - Rezelk - Created
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  *          :                               Reform parser (conbine headings)
+ *          : 2013/07/19 - 0.1.4 - Rezelk - Compatible with IE9 (Re-fix)
  */
 
 // スクリプト固有の名前空間を作成
@@ -346,7 +347,7 @@ slide.parser.parse = function(text) {
 		}
 		
 		// タブ文字
-		inlineHTML = inlineHTML.replace(/\t/g, slide.ops.find("tab").contents());
+		inlineHTML = inlineHTML.replace(/\t/g, slide.ops.find("tab").html());
 		
 		// インライン要素解析 - end --------------------------------------------
 		

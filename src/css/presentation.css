@@ -13,6 +13,10 @@ article#presentation .page {
 }
 /******************************************************************************/
 /* スライドそのものの見た目をここで定義 */
+article#presentation .page div.line {
+	line-height: 1.2em;
+}
+
 /* ページ：見出し */
 article#presentation .page h1,
 article#presentation .page h2,
@@ -22,44 +26,38 @@ article#presentation .page h5,
 article#presentation .page h6 {
 	text-shadow: 2px 2px 3px #888;
 	background: rgba(128, 128, 128, 0.2);
-	padding-left: 10px;
+	padding: 3px 10px 3px 10px;
 	font-weight: normal;
 }
 /* ページ：見出し１ */
 article#presentation .page h1 {
 	font-size: 2.4em;
-	margin-bottom: 10px;
-	margin-left:   0px;
+	margin: 0px 10px 0px 0px;
 }
 /* ページ：見出し２ */
 article#presentation .page h2 {
 	font-size: 2.0em;
-	margin-bottom: 5px;
-	margin-left:   20px;
+	margin: 5px 0px 5px 20px;
 }
 /* ページ：見出し３ */
 article#presentation .page h3 {
 	font-size: 1.8em;
-	margin-bottom: 5px;
-	margin-left:   30px;
+	margin: 5px 0px 5px 30px;
 }
 /* ページ：見出し４ */
 article#presentation .page h4 {
 	font-size: 1.6em;
-	margin-bottom: 5px;
-	margin-left:   40px;
+	margin: 5px 0px 5px 40px;
 }
 /* ページ：見出し５ */
 article#presentation .page h5 {
 	font-size: 1.4em;
-	margin-bottom: 5px;
-	margin-left:   50px;
+	margin: 5px 0px 5px 50px;
 }
 /* ページ：見出し６ */
 article#presentation .page h6 {
 	font-size: 1.2em;
-	margin-bottom: 5px;
-	margin-left:   60px;
+	margin: 5px 0px 5px 60px;
 }
 /* ページ：区切り線 */
 article#presentation .page hr {
@@ -80,6 +78,7 @@ article#presentation .page>ul {
 /* ページ：リスト項目(ul) */
 article#presentation .page>ul>li {
 	margin-left: 25px;
+	line-height: 1.2em;
 }
 /* ページ：リスト(ol) */
 article#presentation .page>ol {
@@ -92,6 +91,7 @@ article#presentation .page>ol {
 /* ページ：リスト項目(ul) */
 article#presentation .page>ol>li {
 	margin: 2px 0px 2px 35px;
+	line-height: 1.2em;
 	padding-left: 5px;
 	position: relative;
 	line-height: 2em;

@@ -2,18 +2,28 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, minimum-scale=0.5 , maximum-scale=2">-->
 	
-	<title>HTML5</title>
+	<title>SlideShow with HTML5/CSS3</title>
 	
 	<!-- Favicon -->
 	<link rel="icon" href="./img/favicon.png"/>
+	
+	<!-- IEのHTML5/CSS3対応 -->
+	<!--[if IE]> 
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+	
 	<!-- CSS -->
+	<!-- 解像度別に適用する場合は media="screen and (max-width: 65025px)" 等を指定する -->
+	<link rel="stylesheet" href="./css/reset.css"/>
 	<link rel="stylesheet" href="./css/core.css"/>
 	<link rel="stylesheet" href="./css/presentation.css"/>
 	<link rel="stylesheet" href="./css/rabbit.css"/>
 	<!-- jQuery 1.10.1 -->
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>-->
-	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./lib/jquery.min.js"></script>
 	<!-- レガシーブラウザ対応（consoleオブジェクト生成） -->
 	<script type="text/javascript" src="./js/console.js"></script>
 	<!-- Slideスクリプト読込 -->
@@ -24,7 +34,7 @@
 	<!-- google-code-prettify : シンタックスハイライト -->
 	<link rel="stylesheet" href="./google-code-prettify/prettify.css"/>
 	<link rel="stylesheet" href="./css/prettify.css"/><!-- 上書きCSS -->
-	<script type="text/javascript" src="./google-code-prettify/prettify.js"></script>
+	<script type="text/javascript" src="./lib/google-code-prettify/prettify.js"></script>
 	
 </head>
 <body>
