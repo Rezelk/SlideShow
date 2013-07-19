@@ -27,4 +27,8 @@ Wait for magic :)
 
 ## 3. Lisence
 
-please wait
+Using, changing, publishing are free.
+
+This code congotmd to MIT license.
+
+Details are "LICENSE.md".
