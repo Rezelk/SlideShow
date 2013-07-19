@@ -5,7 +5,6 @@
  * Desc.    : スライドショーのコントロールスクリプトです。
  *          : スライドショーの操作を実装します。
  *          :
- * Version  : 0.1.0
  * Author   : Rezelk
  * Changes  : 2013/06/27 - 0.1.0 - Rezelk - Created
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
@@ -20,7 +19,6 @@ slide.control.script = {
 	// スクリプト情報
 	thisFile     : "slide.control.js",
 	name         : "Slide Show Parser",
-	lastModified : "2013/07/17"
 	
 	// スクリプト動作設定
 	// なし

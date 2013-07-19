@@ -7,7 +7,6 @@
  *          : スライドファイルのパースおよびHTML化を行います。
  *          : cf) Markdown記法(原文) - http://daringfireball.net/projects/markdown/syntax.php
  *          :
- * Version  : 0.1.0
  * Author   : Rezelk
  * Changes  : 2013/06/25 - 0.1.0 - Rezelk - Created
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
@@ -24,7 +23,6 @@ slide.parser.script = {
 	// スクリプト情報
 	thisFile     : "slide.parser.js",
 	name         : "Slide Show Parser",
-	lastModified : "2013/07/17"
 	
 	// スクリプト動作設定
 	// なし
