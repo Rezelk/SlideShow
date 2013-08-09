@@ -6,7 +6,7 @@
  *          : 設定ファイルおよびスライドファイルの読み込みと
  *          : 処理のディスパッチを行います。
  *          : 
- * Version  : 0.1.5
+ * Version  : 0.1.6
  * Author   : Rezelk
  * Changes  : 2013/06/25 - 0.1.0 - Rezelk - Created
  *          : 2013/06/26 - 0.1.1 - Rezelk - Add presentation control buttons
@@ -14,6 +14,7 @@
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  *          : 2013/07/19 - 0.1.4 - Rezelk - Compatible with IE9 (Re-fix)
  *          : 2013/07/19 - 0.1.5 - Rezelk - Show version info on footer
+ *          : 2013/08/09 - 0.1.6 - Rezelk - Fix scroll bar issue
  */
 
 // スクリプト間の共通名前空間を作成（コアのみ）
@@ -28,8 +29,8 @@ slide.core.script = {
 	// スクリプト情報
 	thisFile     : "slide.core.core.js",
 	name         : "Slide Show Core",
-	lastModified : "2013/07/19",
-	version      : "0.1.5.20130719",
+	lastModified : "2013/08/09",
+	version      : "0.1.6.20130809",
 	
 	// スクリプト動作設定
 	// 設定ファイルのパスをbase.htmlからの相対パス、または絶対パスで指定します

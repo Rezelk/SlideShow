@@ -8,6 +8,7 @@
  * Author   : Rezelk
  * Changes  : 2013/06/27 - 0.1.0 - Rezelk - Created
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
+ *          : 2013/08/09 - 0.1.6 - Rezelk - Fix scroll bar issue
  */
 
 // スクリプト固有の名前空間を作成
@@ -75,6 +76,9 @@ slide.control.showPage = function() {
 	var $page = $("#slide .page").eq(slide.stats.currentPageNo).clone();
 	$page.height(slide.core.$presen.height());
 	slide.core.$presen.append( $page );
+	
+	$("nav.control .overlays").width( $("#presentation .page")[0].scrollWidth );
+	
 	// プログレスを更新
 	var pageNo = slide.stats.currentPageNo + 1;
 	slide.control.updateRabbit(pageNo);
