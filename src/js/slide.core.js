@@ -15,6 +15,11 @@
  *          : 2013/07/19 - 0.1.4 - Rezelk - Compatible with IE9 (Re-fix)
  *          : 2013/07/19 - 0.1.5 - Rezelk - Show version info on footer
  *          : 2013/08/09 - 0.1.6 - Rezelk - Fix scroll bar issue
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of design selection
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of rabbit/turtle visiblilty option
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of multi-slide
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of class grammar
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Fix blank quote issue
  */
 
 // スクリプト間の共通名前空間を作成（コアのみ）
@@ -30,7 +35,7 @@ slide.core.script = {
 	thisFile     : "slide.core.core.js",
 	name         : "Slide Show Core",
 	lastModified : "2013/08/09",
-	version      : "0.1.6.20130809",
+	version      : "0.2.0.20130809",
 	
 	// スクリプト動作設定
 	// 設定ファイルのパスをbase.htmlからの相対パス、または絶対パスで指定します
@@ -91,9 +96,15 @@ $(function() {
 	if (slide.ops === undefined) return;
 	// 設定ファイルを取得する - end --------------------------------------------
 	
+	// デザイン読込
+	slide.core.loadDesgin();
+	
 	// スライド内容を取得する - begin ------------------------------------------
 	// スライドファイルを読み込み
-	slide.core.loadSlide();
+	$("#slide").contents().remove();
+	for (var index = 0; index < slide.ops.slideshows.length; index++) {
+		slide.core.loadSlide(index);
+	}
 	// スライド内容を取得する - end --------------------------------------------
 	
 	// プレゼン機能を実装する - begin ------------------------------------------
@@ -110,6 +121,9 @@ $(function() {
 	};
 	// コントロール機能の実装
 	slide.control.apply();
+	// うさぎとかめの表示設定
+	slide.control.showRabbit();
+	slide.control.showTurtle();
 	// 著作表示
 	var $copyright = $("<div>").id("copyright").text( "[" + slide.core.script.version + "] Created by Rezelk." );
 	$("nav.control .buttons").append( $copyright );
@@ -146,8 +160,26 @@ slide.core.loadOps = function() {
 			console.info("Configure is loaded.");
 			slide.ops = $(data);
 			// 設定ファイルの中身を取得
-			slide.ops.slideshowSrc = slide.ops.find("slideshow").attr("src");
+			// スライド
+			slide.ops.slideshows = slide.ops.find("slides slideshow");
+			slide.ops.slideshows.each(function(index) {
+				slide.ops.slideshows[index].src = $(this).attr("src");
+			});
+			// プレゼン領域ID
 			slide.ops.presenId = slide.ops.find("presenId").attr("id");
+			// うさぎ
+			slide.ops.rabbit = slide.ops.find("rabbit");
+			slide.ops.rabbit.visible = slide.ops.rabbit.find("visible").attr("value");
+			// かめ
+			slide.ops.turtle = slide.ops.find("turtle");
+			slide.ops.turtle.visible = slide.ops.turtle.find("visible").attr("value");
+			// デザイン
+			slide.ops.design = slide.ops.find("design");
+			slide.ops.design.baseDir = slide.ops.design.attr("baseDir");
+			slide.ops.design.css = slide.ops.design.find("css");
+			slide.ops.design.css.each(function(index) {
+				slide.ops.design.css[index].src = $(this).attr("src");
+			});
 		},
 		// 失敗時
 		error: function(xhr, textStat, e) {
@@ -161,11 +193,11 @@ slide.core.loadOps = function() {
 };
 
 // スライドファイルの読み込み
-slide.core.loadSlide = function() {
+slide.core.loadSlide = function(index) {
 	// Ajaxを使ってスライドファイルを読み込む
 	$.ajax({
 		// 通信先はスライドファイル
-		url: slide.ops.slideshowSrc,
+		url: slide.ops.slideshows[index].src,
 		// メソッドはGET
 		type: "GET",
 		// データタイプはXML
@@ -179,7 +211,7 @@ slide.core.loadSlide = function() {
 		// 送信前
 		beforeSend: function(xhr) {
 			// 前処理
-			console.info("Begining to get slideshow from '" + slide.ops.slideshowSrc + "'.");
+			console.info("Begining to get slideshow from '" + slide.ops.slideshows[index].src + "'.");
 			// ローダー表示
 			var $loader = $("<img>").addClass("loader").attr("src", slide.ops.find("loader").attr("src"));
 			$("#presentation").append($loader);
@@ -188,7 +220,7 @@ slide.core.loadSlide = function() {
 		success: function(data, textStat, xhr) {
 			// 読み込んだデータをパーサーにかけてコンテンツとして埋め込む
 			console.info("The slideshow is loaded.");
-			$("#slide").html( slide.parser.parse(data) );
+			$("#slide").append( $(slide.parser.parse(data)) );
 			// 読み込んだスライドは表示しない（DOMとしてDocumentに保持）
 			$("#slide").hide();
 			// プログレスを更新
@@ -208,6 +240,41 @@ slide.core.loadSlide = function() {
 		}
 	});
 };
+
+// デザインの読込
+slide.core.loadDesgin = function() {
+	var $head = $("head");
+	var $links = $("link");
+	var baseUri = slide.ops.design.baseDir;
+	
+	$links.each(function() {
+		var href = $(this).attr("href");
+		if (href != null && (href.indexOf("presentation.css") !== -1 || href.indexOf("rabbit.css") !== -1)) {
+			$(this).remove();
+		}
+	});
+	var dateTime = slide.core.getDateTime();
+	for (var index = 0; index < slide.ops.design.css.length; index++) {
+		var $newLink = $("<link>");
+		$newLink.attr("href", baseUri + "/" + slide.ops.design.css[index].src + "?version=" + dateTime);
+		$newLink.attr("rel", "stylesheet");
+		$head.append($newLink);
+	}
+	console.info("Design is loaded.");
+}
+
+// 現在日時を取得
+slide.core.getDateTime = function() {
+	var nowDate = new Date();
+	var dateTime = "";
+	dateTime += ("0000" + nowDate.getFullYear()).slice(-4);
+	dateTime += ("0000" + nowDate.getMonth()).slice(-2);
+	dateTime += ("0000" + nowDate.getDate()).slice(-2);
+	dateTime += ("0000" + nowDate.getHours()).slice(-2);
+	dateTime += ("0000" + nowDate.getMinutes()).slice(-2);
+	dateTime += ("0000" + nowDate.getSeconds()).slice(-2);
+	return dateTime;
+}
 
 // jQueryのイベントにdataTransferを登録
 jQuery.event.props.push('dataTransfer');

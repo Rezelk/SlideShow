@@ -9,6 +9,7 @@
  * Changes  : 2013/06/27 - 0.1.0 - Rezelk - Created
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  *          : 2013/08/09 - 0.1.6 - Rezelk - Fix scroll bar issue
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of multi-slide
  */
 
 // スクリプト固有の名前空間を作成
@@ -124,7 +125,7 @@ slide.control.startPresentation = function() {
 	prettyPrint();
 	
 	// スライドショーを初めて開始したときはかめ発動
-	if (slide.stats.isStarted === false) {
+	if (slide.stats.isStarted === false && slide.ops.turtle.visible == "true") {
 		// 時間を入力し、秒に変換
 		var time = window.prompt("発表予定時間を入力(mm:ss)", "10:00");
 		if (time == null || time.indexOf(":") == -1) {
@@ -200,7 +201,7 @@ slide.control.showNextSlide = function() {
 	slide.control.showPage();
 };
 
-// スライドファイルを宰予込み込み
+// スライドファイルを再読込
 slide.control.reloadSlideshow = function() {
 	console.info("Reloading slides.");
 	// プレゼン領域の子要素を削除
@@ -210,12 +211,15 @@ slide.control.reloadSlideshow = function() {
 	slide.control.resetTurtle();
 	// 設定を読み込めていなければ処理終了
 	if (slide.ops === undefined) return;
-	// スライドファイルのパスを取得
-	var slideSrc = slide.ops.find("slideshow").attr("src");
+	// デザイン読込
+	slide.core.loadDesgin();
 	// プレゼン領域の子要素を削除
 	slide.core.$presen.contents().remove();
 	// スライドファイルを読み込み
-	slide.core.loadSlide(slideSrc);
+	$("#slide").contents().remove();
+	for (var index = 0; index < slide.ops.slideshows.length; index++) {
+		slide.core.loadSlide(index);
+	}
 	// プレゼンを開始
 	slide.control.startPresentation();
 };
@@ -447,6 +451,24 @@ slide.control.resetPresentation = function() {
 	// ローダー削除
 	$("#presentation img.loader").remove();
 };
+
+// うさぎの表示設定
+slide.control.showRabbit = function(){
+	if (slide.ops.rabbit.visible == "true") {
+		$("#rabbit").css({visibility:"visible"});
+	} else {
+		$("#rabbit").css({visibility:"hidden"});
+	}
+};
+// かめの表示設定
+slide.control.showTurtle = function(){
+	if (slide.ops.turtle.visible == "true") {
+		$("#turtle").css({visibility:"visible"});
+	} else {
+		$("#turtle").css({visibility:"hidden"});
+	}
+};
+
 //============================================================================//
 
 //[EOF]

@@ -251,70 +251,18 @@ article#slide article {
 	margin-bottom: 5px;
 }
 
-/* うさぎ */
-article#rabbit {
-	opacity: 0.5;
-	margin-top: -10px;
-	background: pink;
-	height: 10px;
-	width: 0px;
-	position: relative;
-	z-index: 200;/* プレゼン領域の上、かめの上 */
+/* 左寄せ */
+.left {
+	text-align: left;
 }
-article#rabbit::before {
-	content: "";
-	display: block;
-	width: 0px;
-	height: 0px;
-	position: absolute;
-	top: 0px;
-	right: -10px;
-	border: 5px solid transparent;
-	border-left-color: pink;
-}
-article#rabbit::after {
-	content: url("../img/rabbit.png");
-	display: block;
-	margin-top: -55px;
-	margin-right: 0px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
+/* 中央寄せ */
+.center {
+	text-align: center;
 }
 
-/* かめ */
-article#turtle {
-	opacity: 0.7;
-	margin-top: -10px;
-	background: yellowgreen;
-	height: 10px;
-	width: 0px;
-	position: relative;
-	z-index: 300;/* プレゼン領域とうさぎの上、コントロールの下 */
-	/* アニメーション時間の5sは仮置き */
-	        transition: width 5s linear;
-	   -moz-transition: width 5s linear;
-	-webkit-transition: width 5s linear;
-	     -o-transition: width 5s linear;
+/* 右寄せ */
+.right {
+	text-align: right;
 }
-article#turtle::before {
-	content: "";
-	display: block;
-	width: 0px;
-	height: 0px;
-	position: absolute;
-	top: 0px;
-	right: -10px;
-	border: 5px solid transparent;
-	border-left-color: yellowgreen;
-}
-article#turtle::after {
-	content: url("../img/turtle.png");
-	display: block;
-	margin-top: -55px;
-	margin-right: -45px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-}
+
 /*EOF*/

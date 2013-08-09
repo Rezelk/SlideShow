@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 <ops>
+	
 	<!-- スライドショーデータの相対パスまたは絶対パスを指定します -->
-	<slideshow src="./content/myslide.txt"/>
+	<slides>
+		<!-- 複数スライドある場合は列挙してください -->
+		<slideshow src="./content/myslide.txt"/>
+		<slideshow src="./content/presen1.txt"/>
+	</slides>
+	
+	<!-- デザインCSSの置き場を指定します -->
+	<design baseDir="./css/design-default">
+		<css src="presentation.css">
+		<css src="rabbit.css">
+	</desgin>
 
 	<!-- タブ文字の置換文字列を指定します -->
-	<tab><span class="indent-text">&nbsp;&nbsp;&nbsp;&nbsp;</span></tab>
+	<tab>
+		<span class="indent-text">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	</tab>
 
 	<!-- ローダー画像の相対パスまたは絶対パスを指定します -->
 	<loader src="./img/loader.gif"/>
 	
 	<!-- プレゼン領域の要素IDを指定します -->
 	<presenId id="#presentation"/>
+	
+	<!-- うさぎの動作設定 -->
+	<rabbit>
+		<!-- true:表示, false:非表示 -->
+		<visible value="true"/>
+	</rabbit>
+	
+	<!-- かめの動作設定 -->
+	<turtle>
+		<!-- true:表示, false:非表示 -->
+		<!-- 非表示にするとスライド開始時の発表時間入力ダイアログが表示されなくなります -->
+		<visible value="true"/>
+	</turtle>
 	
 	<!-- プレゼンのスタイル変更は"presentation.css"で変更します -->
 	<!-- うさぎ/かめの表示変更は"rabbit.css"で変更します -->

@@ -17,10 +17,10 @@
 	
 	<!-- CSS -->
 	<!-- 解像度別に適用する場合は media="screen and (max-width: 65025px)" 等を指定する -->
-	<link rel="stylesheet" href="./css/reset.css"/>
-	<link rel="stylesheet" href="./css/core.css"/>
-	<link rel="stylesheet" href="./css/presentation.css"/>
-	<link rel="stylesheet" href="./css/rabbit.css"/>
+	<link rel="stylesheet" href="./css/common/reset.css"/>
+	<link rel="stylesheet" href="./css/common/core.css"/>
+	<link rel="stylesheet" href="./css/default/presentation.css"/>
+	<link rel="stylesheet" href="./css/default/rabbit.css"/>
 	<!-- jQuery 1.10.1 -->
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>-->
 	<script type="text/javascript" src="./lib/jquery.min.js"></script>
@@ -33,7 +33,7 @@
 	
 	<!-- google-code-prettify : シンタックスハイライト -->
 	<link rel="stylesheet" href="./lib/google-code-prettify/prettify.css"/>
-	<link rel="stylesheet" href="./css/prettify.css"/><!-- 上書きCSS -->
+	<link rel="stylesheet" href="./css/common/prettify.css"/><!-- 上書きCSS -->
 	<script type="text/javascript" src="./lib/google-code-prettify/prettify.js"></script>
 	
 </head>
@@ -49,7 +49,7 @@
 				<!--<button class="open" title="スライドショーを開く">　✚　</button>-->
 				<button class="grid" title="一覧ビューを表示（WIP）">　⊞　</button>
 				<button class="reload" title="スライドショーを再読込">　↻　</button>
-				<input class="pageNo" type="text" value="1" tabindex="-1" title="開始するページ番号"/>
+				<input class="pageNo" type="text" value="" tabindex="-1" title="開始するページ番号"/>
 				<button class="start"  title="スライドショーを開始">　►　</button>
 				<button class="prev"   title="１つ前のスライドへ">◄◄</button>
 				<button class="next"   title="１つ後のスライドへ">►►</button>

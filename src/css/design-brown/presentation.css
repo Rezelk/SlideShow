@@ -1,0 +1,168 @@
+/******************************************************************************/
+/* プレゼン領域 */
+article#presentation {
+	position: relative;
+	z-index: 100;/* 最下位 */
+	font-size: 1.4em;
+	background: tan;
+	color: #662200;
+}
+/* プレゼン領域：ページ */
+article#presentation .page {
+	font-family: Verdana,"ヒラギノ角ゴ Pro W3","メイリオ", sans-serif;
+	overflow-x: auto;
+	overflow-y: auto;
+}
+/******************************************************************************/
+/* スライドそのものの見た目をここで定義 */
+article#presentation .page div.line {
+	line-height: 1.5em;
+	margin-left: 1em;
+}
+
+/* ページ：見出し */
+article#presentation .page h1,
+article#presentation .page h2,
+article#presentation .page h3,
+article#presentation .page h4,
+article#presentation .page h5,
+article#presentation .page h6 {
+	text-shadow: 2px 2px 3px #888;
+	background: rgba(164, 145, 128, 0.2);
+	padding: 5px 10px 8px 10px;
+	font-weight: normal;
+	color: brown;
+}
+/* ページ：見出し１ */
+article#presentation .page h1 {
+	font-size: 2.2em;
+	margin: 0px 10px 10px 0px;
+}
+/* ページ：見出し２ */
+article#presentation .page h2 {
+	font-size: 2.0em;
+	margin: 5px 0px 5px 20px;
+}
+/* ページ：見出し３ */
+article#presentation .page h3 {
+	font-size: 1.8em;
+	margin: 5px 0px 5px 30px;
+}
+/* ページ：見出し４ */
+article#presentation .page h4 {
+	font-size: 1.6em;
+	margin: 5px 0px 5px 40px;
+}
+/* ページ：見出し５ */
+article#presentation .page h5 {
+	font-size: 1.4em;
+	margin: 5px 0px 5px 50px;
+}
+/* ページ：見出し６ */
+article#presentation .page h6 {
+	font-size: 1.2em;
+	margin: 5px 0px 5px 60px;
+}
+/* ページ：区切り線 */
+article#presentation .page hr {
+	border: 0;
+	height: 1px;
+	background: #333;
+	background-image: -webkit-linear-gradient(left, #ccc, #833, #ccc);
+	background-image:    -moz-linear-gradient(left, #ccc, #833, #ccc);
+	background-image:     -ms-linear-gradient(left, #ccc, #833, #ccc);
+	background-image:      -o-linear-gradient(left, #ccc, #833, #ccc);
+}
+
+/* ページ：リスト(ul) */
+article#presentation .page>ul {
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+/* ページ：リスト項目(ul) */
+article#presentation .page>ul>li {
+	margin-left: 25px;
+	line-height: 1.5em;
+}
+/* ページ：リスト(ol) */
+article#presentation .page>ol {
+	margin-left: 20px;
+	margin-bottom: 5px;
+	counter-reset: li;
+	list-style: none; /* Remove default numbering */
+	*list-style: decimal; /* Keep using default numbering for IE6/7 */
+}
+/* ページ：リスト項目(ul) */
+article#presentation .page>ol>li {
+	margin: 2px 0px 2px 35px;
+	line-height: 1.2em;
+	padding-left: 5px;
+	position: relative;
+	line-height: 2em;
+	pointer-events: all;
+}
+article#presentation .page>ol>li::before {
+	content: counter(li, decimal);
+	counter-increment: li;
+	width: 2em;
+	position: absolute;
+	top: -2px;
+	left: -2em;
+	background: #fed;
+	border-radius: 2em;
+	width: 2em;
+	height: 2em;
+	text-align: center;
+	font-weight: bold;
+	line-height: 2em;
+	opacity: 0.8;
+	pointer-events: all;
+}
+
+
+/* ページ：引用ブロック */
+article#presentation .page blockquote {
+	border: 1px brown dotted;
+	margin: 1em;
+	padding: 5px;
+	font-size: 0.9em;
+	position: relative;
+	line-height: 1.3em;
+}
+article#presentation .page blockquote::before {
+	content: "";
+	background: #884422;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	opacity: 0.2;
+}
+
+/* ページ：テーブル */
+article#presentation .page table {
+	margin-left: 20px;
+}
+article#presentation .page td {
+	background: #fed;
+	padding: 2px 4px 1px 4px;
+	border-style: dotted;
+	border-color: brown;
+	border-width: 1px;
+}
+
+/* ページ：行 */
+article#presentation .page div.line {
+	margin-left: 20px;
+	font-size: 0.9em;
+}
+
+/* ページ：強調（斜体） */
+article#presentation .page em {
+	font-style: italic;
+	font-family: Verdana, sans-serif;
+}
+
+/******************************************************************************/
+/*EOF*/

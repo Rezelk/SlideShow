@@ -12,6 +12,8 @@
  *          : 2013/07/17 - 0.1.3 - Rezelk - Compatible with IE9
  *          :                               Reform parser (conbine headings)
  *          : 2013/07/19 - 0.1.4 - Rezelk - Compatible with IE9 (Re-fix)
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Add the feature of class grammar
+ *          : 2013/08/09 - 0.2.0 - Rezelk - Fix blank quote issue
  */
 
 // スクリプト固有の名前空間を作成
@@ -100,11 +102,19 @@ slide.parser.parse = function(text) {
 		
 		// 行データ取得
 		var line = lines[index];
-		
+		// クラス
+		var currentClass = null;
 		// インラインテキスト
 		var inlineText = null;
 		// match文字列配列
 		var matches = null;
+		
+		// クラスの検出
+		matches = line.match(/^\[(.+?)\](.+)/);
+		if (matches !== null && matches.length === 3) {
+			currentClass = matches[1];
+			line = matches[2];
+		}
 		
 		// 連続ブロック要素解析 - begin ---------------------------------------
 		// 単純リスト
@@ -152,7 +162,7 @@ slide.parser.parse = function(text) {
 		}
 		
 		// 引用
-		matches = line.match(/^>(.+)/);
+		matches = line.match(/^>(.*)/);
 		if (matches !== null && matches.length === 2) {
 			// 新しい引用ブロックを作成/追加
 			if ($currentQuote === null) {
@@ -165,7 +175,11 @@ slide.parser.parse = function(text) {
 			$currentBlock = $("<div>");
 			// 引用ブロックに子要素を追加
 			$currentQuote.append( $currentBlock );
-			inlineText = matches[1];
+			if (matches[1] === "") {
+				inlineText = "<br/>";
+			} else {
+				inlineText = matches[1];
+			}
 			
 		} else if ($currentQuote !== null) {
 			// 引用ブロックを保持していて、現在の要素が引用以外場合は引用ブロック書出＆初期化
@@ -332,6 +346,9 @@ slide.parser.parse = function(text) {
 			$currentBlock = $("<div>");
 			$currentBlock.addClass("line");
 		}
+		
+		// クラスを設定
+		$currentBlock.addClass(currentClass);
 		
 		// インラインHTMLを初期化
 		var inlineHTML = inlineText;
